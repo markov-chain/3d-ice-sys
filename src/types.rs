@@ -77,6 +77,14 @@ pub enum ChannelModel_t {
 }
 pub use self::ChannelModel_t::*;
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+#[repr(C)]
+pub enum Error_t {
+    TDICE_SUCCESS = 0,
+    TDICE_FAILURE,
+}
+pub use self::Error_t::*;
+
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub enum AnalysisType_t {

@@ -10,3 +10,7 @@ pub struct Analysis_t {
     pub CurrentTime: Quantity_t,
     pub InitialTemperature: Temperature_t,
 }
+
+extern "C" {
+    pub fn analysis_init(analysis: *mut Analysis_t);
+}

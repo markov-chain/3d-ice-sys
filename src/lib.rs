@@ -27,6 +27,7 @@ mod powers_queue;
 mod stack_description;
 mod stack_element;
 mod stack_element_list;
+mod stack_file_parser;
 mod types;
 
 pub use analysis::*;
@@ -52,4 +53,5 @@ pub use powers_queue::*;
 pub use stack_description::*;
 pub use stack_element::*;
 pub use stack_element_list::*;
+pub use stack_file_parser::*;
 pub use types::*;

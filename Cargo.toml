@@ -13,3 +13,6 @@ links = "threed-ice"
 [dependencies]
 libc = "*"
 superlu-sys = "*"
+
+[dev-dependencies]
+temporary = "*"
