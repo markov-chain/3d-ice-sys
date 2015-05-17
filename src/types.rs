@@ -46,7 +46,7 @@ pub type ChannelDimension_t = c_double;
 
 pub type CellIndex_t = uint32_t;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum HeatSinkModel_t {
     TDICE_HEATSINK_MODEL_NONE = 0,
@@ -55,7 +55,7 @@ pub enum HeatSinkModel_t {
 }
 pub use self::HeatSinkModel_t::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum StackElementType_t {
     TDICE_STACK_ELEMENT_NONE = 0,
@@ -66,7 +66,7 @@ pub enum StackElementType_t {
 }
 pub use self::StackElementType_t::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum ChannelModel_t {
     TDICE_CHANNEL_MODEL_NONE = 0,
@@ -85,7 +85,7 @@ pub enum Error_t {
 }
 pub use self::Error_t::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum AnalysisType_t {
     TDICE_ANALYSIS_TYPE_NONE = 0,
@@ -94,7 +94,7 @@ pub enum AnalysisType_t {
 }
 pub use self::AnalysisType_t::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum OutputQuantity_t {
     TDICE_OUTPUT_QUANTITY_NONE = 0,
@@ -104,7 +104,7 @@ pub enum OutputQuantity_t {
 }
 pub use self::OutputQuantity_t::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum OutputType_t {
     TDICE_OUTPUT_TYPE_NONE = 0,
@@ -117,7 +117,7 @@ pub enum OutputType_t {
 }
 pub use self::OutputType_t::*;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum OutputInstant_t {
     TDICE_OUTPUT_INSTANT_NONE = 0,

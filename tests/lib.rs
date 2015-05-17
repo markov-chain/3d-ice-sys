@@ -48,13 +48,6 @@ fn emulator() {
     }
 }
 
-fn find(name: &str) -> PathBuf {
-    use std::fs::PathExt;
-    let path = PathBuf::from("3d-ice/bin").join(name);
-    assert!(path.exists());
-    path
-}
-
 fn setup() -> (PathBuf, Directory) {
     const CORE: &'static str = "core.flp";
     const MEMORY: &'static str = "mem.flp";
@@ -67,4 +60,11 @@ fn setup() -> (PathBuf, Directory) {
     ok!(fs::copy(find(STACK), directory.path().join(STACK)));
 
     (directory.path().join(STACK), directory)
+}
+
+fn find(name: &str) -> PathBuf {
+    use std::fs::PathExt;
+    let path = PathBuf::from("3d-ice/bin").join(name);
+    assert!(path.exists());
+    path
 }
