@@ -9,7 +9,11 @@ use raw::*;
 fn emulator() {
     unsafe {
         let mut stkd: StackDescription_t = mem::uninitialized();
+        let mut analysis: Analysis_t = mem::uninitialized();
+        let mut output: Output_t = mem::uninitialized();
+
         stack_description_init(&mut stkd);
+
         stack_description_destroy(&mut stkd);
     }
 }

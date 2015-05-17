@@ -4,6 +4,8 @@ pub type String_t = *mut c_char;
 
 pub type Quantity_t = uint32_t;
 
+pub type Time_t = c_double;
+
 pub type Temperature_t = c_double;
 
 pub type Source_t = c_double;
@@ -51,7 +53,6 @@ pub enum HeatSinkModel_t {
     TDICE_HEATSINK_MODEL_CONNECTION_TO_AMBIENT,
     TDICE_HEATSINK_MODEL_TRADITIONAL,
 }
-
 pub use self::HeatSinkModel_t::*;
 
 #[derive(Clone, Copy)]
@@ -63,7 +64,6 @@ pub enum StackElementType_t {
     TDICE_STACK_ELEMENT_DIE,
     TDICE_STACK_ELEMENT_HEATSINK,
 }
-
 pub use self::StackElementType_t::*;
 
 #[derive(Clone, Copy)]
@@ -75,5 +75,46 @@ pub enum ChannelModel_t {
     TDICE_CHANNEL_MODEL_PF_INLINE,
     TDICE_CHANNEL_MODEL_PF_STAGGERED,
 }
-
 pub use self::ChannelModel_t::*;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum AnalysisType_t {
+    TDICE_ANALYSIS_TYPE_NONE = 0,
+    TDICE_ANALYSIS_TYPE_TRANSIENT,
+    TDICE_ANALYSIS_TYPE_STEADY,
+}
+pub use self::AnalysisType_t::*;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum OutputQuantity_t {
+    TDICE_OUTPUT_QUANTITY_NONE = 0,
+    TDICE_OUTPUT_QUANTITY_AVERAGE,
+    TDICE_OUTPUT_QUANTITY_MAXIMUM,
+    TDICE_OUTPUT_QUANTITY_MINIMUM,
+}
+pub use self::OutputQuantity_t::*;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum OutputType_t {
+    TDICE_OUTPUT_TYPE_NONE = 0,
+    TDICE_OUTPUT_TYPE_TCELL,
+    TDICE_OUTPUT_TYPE_TFLP,
+    TDICE_OUTPUT_TYPE_TFLPEL,
+    TDICE_OUTPUT_TYPE_TMAP,
+    TDICE_OUTPUT_TYPE_PMAP,
+    TDICE_OUTPUT_TYPE_TCOOLANT,
+}
+pub use self::OutputType_t::*;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum OutputInstant_t {
+    TDICE_OUTPUT_INSTANT_NONE = 0,
+    TDICE_OUTPUT_INSTANT_FINAL,
+    TDICE_OUTPUT_INSTANT_SLOT,
+    TDICE_OUTPUT_INSTANT_STEP,
+}
+pub use self::OutputInstant_t::*;
