@@ -1,0 +1,9 @@
+[package]
+name = "ice-sys"
+version = "0.0.1"
+authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/stainless-steel/ice-sys"
+homepage = "https://github.com/stainless-steel/ice-sys"
+documentation = "https://stainless-steel.github.io/ice-sys"
+description = "The package provides bindings to 3D-ICE."
