@@ -15,11 +15,11 @@ macro_rules! ok(
 );
 
 macro_rules! str_to_c_str(
-    ($str:expr) => (CString::new($str).unwrap());
+    ($str:expr) => (ok!(CString::new($str)));
 );
 
 macro_rules! path_to_c_str(
-    ($path:expr) => (str_to_c_str!($path.to_str().unwrap()));
+    ($path:expr) => (str_to_c_str!(ok!($path.to_str())));
 );
 
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
