@@ -8,9 +8,9 @@ The package provides bindings to [3D-ICE][1].
 
 The 3D-ICE library has been [written and developed][3] using:
 
-* `bison` 2.4.1,
-* `flex` 2.5.35, and
-* `gcc` 4.1.2.
+* `bison 2.4.1`,
+* `flex 2.5.35`, and
+* `gcc 4.1.2`.
 
 It has been observed that it does not compile with newer versions of `bison`.
 
