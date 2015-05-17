@@ -10,5 +10,6 @@ description = "The package provides bindings to 3D-ICE."
 build = "build.rs"
 links = "threed-ice"
 
-[dependencies.superlu-sys]
-version = "*"
+[dependencies]
+libc = "*"
+superlu-sys = "*"

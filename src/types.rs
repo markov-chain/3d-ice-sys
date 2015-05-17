@@ -1,0 +1,79 @@
+use libc::{c_char, c_double, uint32_t};
+
+pub type String_t = *mut c_char;
+
+pub type Quantity_t = uint32_t;
+
+pub type Temperature_t = c_double;
+
+pub type Source_t = c_double;
+
+pub type Power_t = c_double;
+
+pub type AmbientHTC_t = c_double;
+
+pub type SolidVHC_t = c_double;
+
+pub type SolidTC_t = c_double;
+
+pub type CoolantHTC_t = c_double;
+
+pub type CoolantVHC_t = c_double;
+
+pub type CoolantFR_t = c_double;
+
+pub type DarcyVelocity_t = c_double;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub struct Coolant_t {
+    pub HTCSide: CoolantHTC_t,
+    pub HTCTop: CoolantHTC_t,
+    pub HTCBottom: CoolantHTC_t,
+    pub VHC: CoolantVHC_t,
+    pub FlowRate: CoolantFR_t,
+    pub DarcyVelocity: DarcyVelocity_t,
+    pub TIn: Temperature_t,
+}
+
+pub type CellDimension_t = c_double;
+
+pub type ChipDimension_t = c_double;
+
+pub type ChannelDimension_t = c_double;
+
+pub type CellIndex_t = uint32_t;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum HeatSinkModel_t {
+    TDICE_HEATSINK_MODEL_NONE = 0,
+    TDICE_HEATSINK_MODEL_CONNECTION_TO_AMBIENT,
+    TDICE_HEATSINK_MODEL_TRADITIONAL,
+}
+
+pub use self::HeatSinkModel_t::*;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum StackElementType_t {
+    TDICE_STACK_ELEMENT_NONE = 0,
+    TDICE_STACK_ELEMENT_LAYER,
+    TDICE_STACK_ELEMENT_CHANNEL,
+    TDICE_STACK_ELEMENT_DIE,
+    TDICE_STACK_ELEMENT_HEATSINK,
+}
+
+pub use self::StackElementType_t::*;
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub enum ChannelModel_t {
+    TDICE_CHANNEL_MODEL_NONE = 0,
+    TDICE_CHANNEL_MODEL_MC_4RM,
+    TDICE_CHANNEL_MODEL_MC_2RM,
+    TDICE_CHANNEL_MODEL_PF_INLINE,
+    TDICE_CHANNEL_MODEL_PF_STAGGERED,
+}
+
+pub use self::ChannelModel_t::*;
