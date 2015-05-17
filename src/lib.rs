@@ -45,7 +45,3 @@ pub use stack_description::*;
 pub use stack_element::*;
 pub use stack_element_list::*;
 pub use types::*;
-
-extern "C" {
-    pub fn stack_description_init(stkd: *mut StackDescription_t);
-}

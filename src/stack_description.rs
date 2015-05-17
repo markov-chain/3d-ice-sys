@@ -19,3 +19,8 @@ pub struct StackDescription_t {
     pub Dimensions: *mut Dimensions_t,
     pub StackElements: StackElementList_t,
 }
+
+extern "C" {
+    pub fn stack_description_init(stkd: *mut StackDescription_t);
+    pub fn stack_description_destroy(stkd: *mut StackDescription_t);
+}
