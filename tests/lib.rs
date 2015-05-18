@@ -109,7 +109,7 @@ fn setup() -> (PathBuf, Directory) {
 
 fn find(name: &str) -> PathBuf {
     use std::fs::PathExt;
-    let path = PathBuf::from("3d-ice/bin").join(name);
+    let path = PathBuf::from("build/3d-ice/bin").join(name);
     assert!(path.exists());
     path
 }
