@@ -18,6 +18,8 @@ pub type SolidVHC_t = c_double;
 
 pub type SolidTC_t = c_double;
 
+pub type SystemMatrixCoeff_t = c_double;
+
 pub type CoolantHTC_t = c_double;
 
 pub type CoolantVHC_t = c_double;
@@ -54,6 +56,27 @@ pub enum HeatSinkModel_t {
     TDICE_HEATSINK_MODEL_TRADITIONAL,
 }
 pub use self::HeatSinkModel_t::*;
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+#[repr(C)]
+pub enum StackLayerType_t {
+    TDICE_LAYER_NONE = 0,
+    TDICE_LAYER_SOLID,
+    TDICE_LAYER_SOURCE,
+    TDICE_LAYER_SOLID_CONNECTED_TO_AMBIENT,
+    TDICE_LAYER_SOURCE_CONNECTED_TO_AMBIENT,
+    TDICE_LAYER_SPREADER,
+    TDICE_LAYER_SINK,
+    TDICE_LAYER_CHANNEL_4RM,
+    TDICE_LAYER_CHANNEL_2RM,
+    TDICE_LAYER_PINFINS_INLINE,
+    TDICE_LAYER_PINFINS_STAGGERED,
+    TDICE_LAYER_VWALL_CHANNEL,
+    TDICE_LAYER_VWALL_PINFINS,
+    TDICE_LAYER_TOP_WALL,
+    TDICE_LAYER_BOTTOM_WALL,
+}
+pub use self::StackLayerType_t::*;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]

@@ -1,4 +1,5 @@
 use superlu_sys::SuperMatrix;
+
 use types::*;
 
 #[derive(Clone, Copy)]

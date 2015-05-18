@@ -32,17 +32,27 @@ fn emulator() {
         let mut stkd: StackDescription_t = mem::uninitialized();
         let mut analysis: Analysis_t = mem::uninitialized();
         let mut output: Output_t = mem::uninitialized();
+        let mut tdata: ThermalData_t = mem::uninitialized();
 
         stack_description_init(&mut stkd);
         analysis_init(&mut analysis);
         output_init(&mut output);
 
-        let error = parse_stack_description_file(
+        let mut error = parse_stack_description_file(
             path_to_c_str!(stack).as_ptr() as *mut _,
             &mut stkd, &mut analysis, &mut output,
         );
         assert!(error == TDICE_SUCCESS);
 
+        assert!(analysis.AnalysisType == TDICE_ANALYSIS_TYPE_TRANSIENT);
+
+        error = generate_output_headers(&mut output, stkd.Dimensions,
+                                        str_to_c_str!("% ").as_ptr() as String_t);
+        assert!(error == TDICE_SUCCESS);
+
+        thermal_data_init(&mut tdata);
+
+        thermal_data_destroy(&mut tdata);
         stack_description_destroy(&mut stkd);
         output_destroy(&mut output);
     }
