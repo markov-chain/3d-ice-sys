@@ -1,6 +1,9 @@
 use superlu_sys::SuperMatrix;
 
+use analysis::*;
+use dimensions::*;
 use power_grid::*;
+use stack_element_list::*;
 use system_matrix::*;
 use thermal_grid::*;
 use types::*;
@@ -18,5 +21,11 @@ pub struct ThermalData_t {
 
 extern "C" {
     pub fn thermal_data_init(tdata: *mut ThermalData_t);
+
+    pub fn thermal_data_build(tdata: *mut ThermalData_t,
+                              list: *mut StackElementList_t,
+                              dimensions: *mut Dimensions_t,
+                              analysis: *mut Analysis_t) -> Error_t;
+
     pub fn thermal_data_destroy(tdata: *mut ThermalData_t);
 }

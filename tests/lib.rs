@@ -52,6 +52,10 @@ fn emulator() {
 
         thermal_data_init(&mut tdata);
 
+        error = thermal_data_build(&mut tdata, &mut stkd.StackElements, stkd.Dimensions,
+                                   &mut analysis);
+        assert!(error == TDICE_SUCCESS);
+
         thermal_data_destroy(&mut tdata);
         stack_description_destroy(&mut stkd);
         output_destroy(&mut output);
