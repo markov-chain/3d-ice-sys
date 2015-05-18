@@ -88,7 +88,7 @@ fn emulator() {
         output_destroy(&mut output);
     }
 
-    ok!(env::set_current_dir(current_dir));
+    ok!(env::set_current_dir(&current_dir));
 }
 
 fn setup() -> (PathBuf, Directory) {
