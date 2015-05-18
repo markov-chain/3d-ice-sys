@@ -1,18 +1,18 @@
 build := $(CARGO_MANIFEST_DIR)/build
-output := $(OUT_DIR)/lib
+output := $(OUT_DIR)
 source := $(build)/3d-ice
 patches := $(build)/patches
 superlu := $(DEP_SUPERLU_ROOT)/include
 cflags := -fPIC -MD -O3 -w
+library := lib/libthreed-ice.a
 
-library := $(output)/libthreed-ice.a
+all: $(output)/$(library)
 
-all: $(library)
+$(output)/$(library): $(source)/$(library)
+	mkdir -p $(dir $@)
+	cp $< $@
 
-$(library): $(output)
+$(source)/$(library):
 	(cd $(source) && git apply $(patches)/*.patch)
 	$(MAKE) -C $(source) lib 3DICE_LIB_A='$@' SLU_INCLUDE='$(superlu)' SLU_LIBS= CFLAGS='$(cflags)'
 	(cd $(source) && git checkout .)
-
-$(output):
-	mkdir -p $(output)
