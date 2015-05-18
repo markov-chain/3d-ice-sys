@@ -1,5 +1,3 @@
-#![feature(path_ext)]
-
 extern crate temporary;
 extern crate threed_ice_sys as raw;
 
@@ -108,8 +106,7 @@ fn setup() -> (PathBuf, Directory) {
 }
 
 fn find(name: &str) -> PathBuf {
-    use std::fs::PathExt;
     let path = PathBuf::from("build/3d-ice/bin").join(name);
-    assert!(path.exists());
+    assert!(fs::metadata(&path).is_ok());
     path
 }
