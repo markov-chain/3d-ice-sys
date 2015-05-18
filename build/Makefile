@@ -13,6 +13,6 @@ $(output)/$(library): $(source)/$(library)
 	cp $< $@
 
 $(source)/$(library):
-	(cd $(source) && git apply $(patches)/*.patch)
+	(cd $(source) && (cat $(patches)/*.patch | patch -p1))
 	$(MAKE) -C $(source) lib 3DICE_LIB_A='$@' SLU_INCLUDE='$(superlu)' SLU_LIBS= CFLAGS='$(cflags)'
-	(cd $(source) && git checkout .)
+	(cd $(source) && (cat $(patches)/*.patch | patch -p1 -R))
