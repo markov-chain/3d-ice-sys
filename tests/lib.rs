@@ -25,8 +25,9 @@ macro_rules! path_to_c_str(
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]
 fn emulator() {
-    let (stack, directory) = setup();
-    ok!(env::set_current_dir(directory.path()));
+    let (stack, working_dir) = setup();
+    let current_dir = ok!(env::current_dir());
+    ok!(env::set_current_dir(working_dir.path()));
 
     unsafe {
         let mut stkd: StackDescription_t = mem::uninitialized();
@@ -88,6 +89,8 @@ fn emulator() {
         stack_description_destroy(&mut stkd);
         output_destroy(&mut output);
     }
+
+    ok!(env::set_current_dir(current_dir));
 }
 
 fn setup() -> (PathBuf, Directory) {
