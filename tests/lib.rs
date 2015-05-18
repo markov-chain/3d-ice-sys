@@ -56,6 +56,29 @@ fn emulator() {
                                    &mut analysis);
         assert!(error == TDICE_SUCCESS);
 
+        loop {
+            match emulate_step(&mut tdata, stkd.Dimensions, &mut analysis) {
+                SimResult_t::TDICE_STEP_DONE => {
+                    generate_output(&mut output, stkd.Dimensions, tdata.Temperatures,
+                                    tdata.PowerGrid.Sources, get_simulated_time(&mut analysis),
+                                    TDICE_OUTPUT_INSTANT_STEP);
+                },
+                SimResult_t::TDICE_SLOT_DONE => {
+                    generate_output(&mut output, stkd.Dimensions, tdata.Temperatures,
+                                    tdata.PowerGrid.Sources, get_simulated_time(&mut analysis),
+                                    TDICE_OUTPUT_INSTANT_STEP);
+                    generate_output(&mut output, stkd.Dimensions, tdata.Temperatures,
+                                    tdata.PowerGrid.Sources, get_simulated_time(&mut analysis),
+                                    TDICE_OUTPUT_INSTANT_SLOT);
+                },
+                SimResult_t::TDICE_END_OF_SIMULATION => break,
+                _ => assert!(false),
+            }
+        }
+
+        generate_output(&mut output, stkd.Dimensions, tdata.Temperatures, tdata.PowerGrid.Sources,
+                        get_simulated_time(&mut analysis), TDICE_OUTPUT_INSTANT_FINAL);
+
         thermal_data_destroy(&mut tdata);
         stack_description_destroy(&mut stkd);
         output_destroy(&mut output);

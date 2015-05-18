@@ -13,4 +13,5 @@ pub struct Analysis_t {
 
 extern "C" {
     pub fn analysis_init(analysis: *mut Analysis_t);
+    pub fn get_simulated_time(analysis: *mut Analysis_t) -> Time_t;
 }

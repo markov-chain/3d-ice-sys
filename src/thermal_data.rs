@@ -28,4 +28,8 @@ extern "C" {
                               analysis: *mut Analysis_t) -> Error_t;
 
     pub fn thermal_data_destroy(tdata: *mut ThermalData_t);
+
+    pub fn emulate_step(tdata: *mut ThermalData_t,
+                        dimensions: *mut Dimensions_t,
+                        analysis: *mut Analysis_t) -> SimResult_t;
 }

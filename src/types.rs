@@ -102,6 +102,17 @@ pub use self::ChannelModel_t::*;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
+pub enum SimResult_t {
+    TDICE_END_OF_SIMULATION = 0,
+    TDICE_WRONG_CONFIG,
+    TDICE_SOLVER_ERROR,
+    TDICE_STEP_DONE,
+    TDICE_SLOT_DONE
+}
+pub use self::SimResult_t::*;
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+#[repr(C)]
 pub enum Error_t {
     TDICE_SUCCESS = 0,
     TDICE_FAILURE,
