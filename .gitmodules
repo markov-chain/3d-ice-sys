@@ -1,5 +1,5 @@
 [submodule "3d-ice"]
-	path = build/3d-ice
+	path = build/source
 	url = https://github.com/copies/3d-ice.git
 [submodule "patches"]
 	path = build/patches

@@ -1,6 +1,6 @@
 build := $(CARGO_MANIFEST_DIR)/build
 output := $(OUT_DIR)
-source := $(build)/3d-ice
+source := $(build)/source
 patches := $(build)/patches
 superlu := $(DEP_SUPERLU_ROOT)/include
 cflags := -fPIC -MD -O3 -w

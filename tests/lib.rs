@@ -104,7 +104,7 @@ fn setup() -> (PathBuf, Directory) {
     const MEMORY: &'static str = "mem.flp";
     const STACK: &'static str = "example_transient.stk";
 
-    let directory = ok!(Directory::new("3d-ice"));
+    let directory = ok!(Directory::new("3d-ice-sys"));
 
     ok!(fs::copy(find(CORE), directory.path().join(CORE)));
     ok!(fs::copy(find(MEMORY), directory.path().join(MEMORY)));
@@ -114,7 +114,7 @@ fn setup() -> (PathBuf, Directory) {
 }
 
 fn find(name: &str) -> PathBuf {
-    let path = PathBuf::from("build/3d-ice/bin").join(name);
+    let path = PathBuf::from("build/source/bin").join(name);
     assert!(fs::metadata(&path).is_ok());
     path
 }
