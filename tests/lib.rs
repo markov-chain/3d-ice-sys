@@ -4,6 +4,8 @@ extern crate threed_ice_sys as raw;
 use std::{env, fs, mem};
 use std::ffi::CString;
 use std::path::PathBuf;
+use std::sync::mpsc::{self, Receiver};
+use std::thread::{self, JoinHandle};
 use temporary::Directory;
 
 use raw::*;
@@ -26,6 +28,9 @@ fn emulator() {
     let (stack, working_dir) = setup();
     let current_dir = ok!(env::current_dir());
     ok!(env::set_current_dir(working_dir.path()));
+
+    let (tx, rx) = mpsc::channel();
+    let handle = ping(rx);
 
     unsafe {
         let mut stkd: StackDescription_t = mem::uninitialized();
@@ -88,6 +93,9 @@ fn emulator() {
         output_destroy(&mut output);
     }
 
+    ok!(tx.send(true));
+    ok!(handle.join());
+
     ok!(env::set_current_dir(&current_dir));
 }
 
@@ -109,4 +117,17 @@ fn find(name: &str) -> PathBuf {
     let path = PathBuf::from("build/3d-ice/bin").join(name);
     assert!(fs::metadata(&path).is_ok());
     path
+}
+
+fn ping(done: Receiver<bool>) -> JoinHandle<()> {
+    thread::spawn(move || {
+        loop {
+            println!("Working...");
+            match done.try_recv() {
+                Err(mpsc::TryRecvError::Empty) => {},
+                _ => break,
+            }
+            thread::sleep_ms(10 * 1000);
+        }
+    })
 }
