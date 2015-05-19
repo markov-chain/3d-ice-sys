@@ -1,9 +1,10 @@
 use std::mem;
+
 use raw::*;
 
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]
-fn emulator() { ::setup_simulator(move |stkd, analysis, output| ::setup_ping(move || unsafe {
+fn test_emulator() { ::setup_simulator(move |stkd, analysis, output| ::setup_ping(move || unsafe {
     let mut tdata: ThermalData_t = mem::uninitialized();
 
     thermal_data_init(&mut tdata);

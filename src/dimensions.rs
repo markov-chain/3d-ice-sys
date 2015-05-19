@@ -36,3 +36,9 @@ pub struct Dimensions_t {
     pub Grid: GridDimensions_t,
     pub Chip: ChipDimensions_t,
 }
+
+extern "C" {
+    pub fn get_number_of_layers(dimensions: *mut Dimensions_t) -> CellIndex_t;
+    pub fn get_number_of_cells(dimensions: *mut Dimensions_t) -> CellIndex_t;
+    pub fn get_number_of_connections(dimensions: *mut Dimensions_t) -> CellIndex_t;
+}
