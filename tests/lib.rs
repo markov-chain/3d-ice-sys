@@ -60,11 +60,7 @@ fn emulator() {
                                    &mut analysis);
         assert!(error == TDICE_SUCCESS);
 
-        let mut iterations = 5 * 10 + 1;
         loop {
-            assert!(iterations > 0);
-            iterations -= 1;
-
             match emulate_step(&mut tdata, stkd.Dimensions, &mut analysis) {
                 SimResult_t::TDICE_STEP_DONE => {
                     generate_output(&mut output, stkd.Dimensions, tdata.Temperatures,
@@ -83,7 +79,6 @@ fn emulator() {
                 _ => assert!(false),
             }
         }
-        assert!(iterations == 0);
 
         generate_output(&mut output, stkd.Dimensions, tdata.Temperatures, tdata.PowerGrid.Sources,
                         get_simulated_time(&mut analysis), TDICE_OUTPUT_INSTANT_FINAL);
