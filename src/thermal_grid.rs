@@ -16,7 +16,10 @@ pub struct ThermalGrid_t {
 }
 
 extern "C" {
+    pub fn thermal_grid_init(tgrid: *mut ThermalGrid_t);
     pub fn thermal_grid_build(tgrid: *mut ThermalGrid_t, size: Quantity_t) -> Error_t;
+    pub fn thermal_grid_destroy(tgrid: *mut ThermalGrid_t);
+
     pub fn fill_thermal_grid(tgrid: *mut ThermalGrid_t, list: *mut StackElementList_t,
                              dimensions: *mut Dimensions_t);
 }

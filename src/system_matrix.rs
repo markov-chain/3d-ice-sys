@@ -27,6 +27,8 @@ pub struct SystemMatrix_t {
 }
 
 extern "C" {
+    pub fn system_matrix_init(sysmatrix: *mut SystemMatrix_t);
+
     pub fn system_matrix_build(sysmatrix: *mut SystemMatrix_t, size: CellIndex_t,
                                nnz: CellIndex_t) -> Error_t;
 
