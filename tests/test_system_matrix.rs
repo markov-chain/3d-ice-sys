@@ -1,8 +1,3 @@
-extern crate threed_ice_sys;
-
-#[macro_use]
-mod support;
-
 use std::mem;
 use threed_ice_sys::*;
 

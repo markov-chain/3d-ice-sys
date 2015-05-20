@@ -1,9 +1,3 @@
-extern crate libc;
-extern crate threed_ice_sys;
-
-#[macro_use]
-mod support;
-
 use libc::c_double;
 use std::{iter, mem};
 use threed_ice_sys::*;

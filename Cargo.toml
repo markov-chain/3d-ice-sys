@@ -16,3 +16,6 @@ superlu-sys = "*"
 
 [dev-dependencies]
 temporary = "*"
+
+[[test]]
+name = "lib"
