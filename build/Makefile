@@ -13,6 +13,6 @@ $(output)/$(library): $(source)/$(library)
 	cp $< $@
 
 $(source)/$(library):
-	(cd $(source) && (cat $(patches)/*{-01-,-02-}*.patch | patch -p1))
+	(cd $(source) && (cat $(patches)/*{-01-,-02-,-03-}*.patch | patch -p1))
 	$(MAKE) -C $(source) lib 3DICE_LIB_A='$@' SLU_INCLUDE='$(superlu)' SLU_LIBS= CFLAGS='$(cflags)'
-	(cd $(source) && (cat $(patches)/*{-02-,-01-}*.patch | patch -p1 -R))
+	(cd $(source) && (cat $(patches)/*{-03-,-02-,-01-}*.patch | patch -p1 -R))
