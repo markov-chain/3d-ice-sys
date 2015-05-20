@@ -1,10 +1,17 @@
+extern crate libc;
+extern crate threed_ice_sys;
+
+#[macro_use]
+mod support;
+
 use libc::c_double;
 use std::{iter, mem};
+use threed_ice_sys::*;
 
-use raw::*;
+use support::setup_simulator;
 
 #[test]
-fn test_system_vector() { ::setup_simulator(move |stkd, analysis, _| unsafe {
+fn test_system_vector() { setup_simulator(move |stkd, analysis, _| unsafe {
     let mut tgrid: ThermalGrid_t = mem::uninitialized();
     let mut pgrid: PowerGrid_t = mem::uninitialized();
 

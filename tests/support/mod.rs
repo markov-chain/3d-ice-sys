@@ -1,15 +1,14 @@
-extern crate libc;
-extern crate temporary;
+#![allow(dead_code)]
 
-extern crate threed_ice_sys as raw;
+extern crate temporary;
 
 use std::{env, fs, mem};
 use std::path::{Path, PathBuf};
 use std::sync::mpsc;
 use std::thread;
-use temporary::Directory;
+use self::temporary::Directory;
 
-use raw::*;
+use threed_ice_sys::*;
 
 macro_rules! ok(
     ($result:expr) => ($result.unwrap());
@@ -27,11 +26,7 @@ macro_rules! path_to_c_str(
     ($path:expr) => (str_to_c_str!(ok!($path.to_str())));
 );
 
-mod test_emulator;
-mod test_system_matrix;
-mod test_system_vector;
-
-fn setup_simulator<F>(mut code: F)
+pub fn setup_simulator<F>(mut code: F)
     where F: FnMut(&mut StackDescription_t, &mut Analysis_t, &mut Output_t) {
 
     setup_environment(move |stack| unsafe {
@@ -56,7 +51,7 @@ fn setup_simulator<F>(mut code: F)
     });
 }
 
-fn setup_environment<F>(mut code: F) where F: FnMut(&Path) {
+pub fn setup_environment<F>(mut code: F) where F: FnMut(&Path) {
     const CORE: &'static str = "core.flp";
     const MEMORY: &'static str = "mem.flp";
     const STACK: &'static str = "example_transient.stk";
@@ -74,7 +69,7 @@ fn setup_environment<F>(mut code: F) where F: FnMut(&Path) {
     ok!(env::set_current_dir(&current_path));
 }
 
-fn setup_ping<F>(mut code: F) where F: FnMut() {
+pub fn setup_ping<F>(mut code: F) where F: FnMut() {
     let (tx, rx) = mpsc::channel();
     let handle = thread::spawn(move || {
         loop {

@@ -1,10 +1,16 @@
-use std::mem;
+extern crate threed_ice_sys;
 
-use raw::*;
+#[macro_use]
+mod support;
+
+use std::mem;
+use threed_ice_sys::*;
+
+use support::{setup_simulator, setup_ping};
 
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]
-fn test_emulator() { ::setup_simulator(move |stkd, analysis, output| ::setup_ping(move || unsafe {
+fn test_emulator() { setup_simulator(move |stkd, analysis, output| setup_ping(move || unsafe {
     let mut tdata: ThermalData_t = mem::uninitialized();
 
     thermal_data_init(&mut tdata);
