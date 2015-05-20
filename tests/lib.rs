@@ -1,4 +1,6 @@
+extern crate libc;
 extern crate temporary;
+
 extern crate threed_ice_sys as raw;
 
 use std::{env, fs, mem};
@@ -27,6 +29,7 @@ macro_rules! path_to_c_str(
 
 mod test_emulator;
 mod test_system_matrix;
+mod test_system_vector;
 
 fn setup_simulator<F>(mut code: F)
     where F: FnMut(&mut StackDescription_t, &mut Analysis_t, &mut Output_t) {

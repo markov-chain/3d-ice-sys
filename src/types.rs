@@ -18,6 +18,8 @@ pub type SolidVHC_t = c_double;
 
 pub type SolidTC_t = c_double;
 
+pub type Capacity_t = c_double;
+
 pub type SystemMatrixCoeff_t = c_double;
 
 pub type CoolantHTC_t = c_double;

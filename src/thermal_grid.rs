@@ -22,4 +22,8 @@ extern "C" {
 
     pub fn fill_thermal_grid(tgrid: *mut ThermalGrid_t, list: *mut StackElementList_t,
                              dimensions: *mut Dimensions_t);
+
+    pub fn get_capacity(tgrid: *mut ThermalGrid_t, dimensions: *mut Dimensions_t,
+                        layer_index: CellIndex_t, row_index: CellIndex_t,
+                        column_index: CellIndex_t) -> Capacity_t;
 }
