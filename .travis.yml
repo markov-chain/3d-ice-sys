@@ -5,7 +5,7 @@ before_install:
   - sudo apt-get install gfortran
 
 after_success:
-  - curl https://stainless-steel.github.io/travis/after_success.sh | CRATE_NAME=threed-ice-sys bash
+  - curl https://stainless-steel.github.io/travis/after_success.sh | CRATE_NAME=threed_ice_sys bash
 
 script:
   - cargo build --verbose
