@@ -5,13 +5,15 @@ use support::{setup_simulator, setup_ping};
 
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]
-fn test_emulator() { setup_simulator(move |stkd, analysis, output| setup_ping(move || unsafe {
+fn test_emulator() { setup_simulator(None, move |stkd, analysis, output| unsafe {
     let mut tdata: ThermalData_t = mem::uninitialized();
 
     thermal_data_init(&mut tdata);
 
-    success!(thermal_data_build(&mut tdata, &mut stkd.StackElements,
-                                stkd.Dimensions, analysis));
+    setup_ping(|| {
+        success!(thermal_data_build(&mut tdata, &mut stkd.StackElements,
+                                    stkd.Dimensions, analysis));
+    });
 
     success!(generate_output_headers(output, stkd.Dimensions,
                                      str_to_c_str!("% ").as_ptr() as String_t));
@@ -40,4 +42,4 @@ fn test_emulator() { setup_simulator(move |stkd, analysis, output| setup_ping(mo
                     get_simulated_time(analysis), TDICE_OUTPUT_INSTANT_FINAL);
 
     thermal_data_destroy(&mut tdata);
-}))}
+})}

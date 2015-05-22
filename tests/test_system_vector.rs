@@ -5,7 +5,7 @@ use threed_ice_sys::*;
 use support::setup_simulator;
 
 #[test]
-fn test_system_vector() { setup_simulator(move |stkd, analysis, _| unsafe {
+fn test_system_vector() { setup_simulator(None, move |stkd, analysis, _| unsafe {
     let mut tgrid: ThermalGrid_t = mem::uninitialized();
     let mut pgrid: PowerGrid_t = mem::uninitialized();
 

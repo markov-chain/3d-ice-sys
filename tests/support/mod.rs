@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 extern crate temporary;
 
 use std::{fs, mem};
@@ -26,10 +24,10 @@ macro_rules! path_to_c_str(
     ($path:expr) => (str_to_c_str!(ok!($path.to_str())));
 );
 
-pub fn setup_simulator<F>(mut code: F)
+pub fn setup_simulator<F>(name: Option<&str>, mut code: F)
     where F: FnMut(&mut StackDescription_t, &mut Analysis_t, &mut Output_t) {
 
-    setup_environment(move |stack| unsafe {
+    setup_environment(name, move |stack| unsafe {
         let mut stkd: StackDescription_t = mem::uninitialized();
         let mut analysis: Analysis_t = mem::uninitialized();
         let mut output: Output_t = mem::uninitialized();
@@ -51,18 +49,15 @@ pub fn setup_simulator<F>(mut code: F)
     });
 }
 
-pub fn setup_environment<F>(mut code: F) where F: FnMut(&Path) {
-    const CORE: &'static str = "core.flp";
-    const MEMORY: &'static str = "mem.flp";
-    const STACK: &'static str = "example_transient.stk";
-
+pub fn setup_environment<F>(name: Option<&str>, mut code: F) where F: FnMut(&Path) {
     let directory = ok!(Directory::new("threed_ice_sys"));
-
-    ok!(fs::copy(find(CORE), directory.path().join(CORE)));
-    ok!(fs::copy(find(MEMORY), directory.path().join(MEMORY)));
-    copy_fixing_paths(find(STACK), directory.path().join(STACK));
-
-    code(&directory.path().join(STACK));
+    let from = match name {
+        Some(name) => find(name),
+        None => find("default"),
+    };
+    let into = directory.path().join(ok!(from.file_name()));
+    copy(&from, &into);
+    code(&into);
 }
 
 pub fn setup_ping<F>(mut code: F) where F: FnMut() {
@@ -85,21 +80,36 @@ pub fn setup_ping<F>(mut code: F) where F: FnMut() {
 }
 
 fn find(name: &str) -> PathBuf {
-    let path = PathBuf::from("build/source/bin").join(name);
-    assert!(fs::metadata(&path).is_ok());
-    path
+    use std::ascii::AsciiExt;
+
+    let path = PathBuf::from("tests/fixtures").join(name);
+    assert!(ok!(fs::metadata(&path)).is_dir());
+
+    for entry in ok!(fs::read_dir(&path)) {
+        let entry = ok!(entry);
+        if ok!(fs::metadata(entry.path())).is_dir() {
+            continue;
+        }
+        match &ok!(ok!(entry.path().extension()).to_str()).to_ascii_lowercase()[..] {
+            "stk" => return entry.path(),
+            _ => {},
+        }
+    }
+
+    panic!("cannot find a stack description in {:?}", path);
 }
 
-fn copy_fixing_paths<S: AsRef<Path>, D: AsRef<Path>>(source: S, destination: D) {
+fn copy(source: &Path, destination: &Path) {
     use std::fs::File;
     use std::io::{BufRead, BufReader, BufWriter, Write};
 
-    let directory = ok!(destination.as_ref().parent());
+    let from = ok!(source.parent());
+    let into = ok!(destination.parent());
 
-    let mut source = ok!(File::open(source.as_ref()));
+    let mut source = ok!(File::open(source));
     let reader = BufReader::new(&mut source);
 
-    let mut destination = ok!(File::create(destination.as_ref()));
+    let mut destination = ok!(File::create(destination));
     let mut writer = BufWriter::new(&mut destination);
 
     for line in reader.lines() {
@@ -107,10 +117,18 @@ fn copy_fixing_paths<S: AsRef<Path>, D: AsRef<Path>>(source: S, destination: D) 
         match line.find('"') {
             Some(i) => match line.rfind('"') {
                 Some(j) => {
-                    ok!(writer.write(&line[..i+1].as_bytes()));
-                    ok!(writer.write(ok!(directory.join(&line[i+1..j]).to_str()).as_bytes()));
-                    ok!(writer.write(&line[j..].as_bytes()));
+                    let (prefix, name, suffix) = (&line[..i+1], &line[i+1..j], &line[j..]);
+                    let (source, destination) = (from.join(name), into.join(name));
+
+                    ok!(writer.write(prefix.as_bytes()));
+                    ok!(writer.write(ok!(destination.to_str()).as_bytes()));
+                    ok!(writer.write(suffix.as_bytes()));
                     ok!(writer.write(b"\n"));
+
+                    if fs::metadata(&source).is_ok() {
+                        ok!(fs::copy(&source, &destination));
+                    }
+
                     continue;
                 },
                 _ => assert!(false),
