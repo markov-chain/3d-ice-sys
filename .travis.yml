@@ -9,7 +9,7 @@ after_success:
 
 script:
   - cargo build --verbose
-  - cargo test --verbose -- --nocapture
+  - cargo test --verbose system
 
 env:
   global:
