@@ -1,3 +1,4 @@
+use assert;
 use libc::c_double;
 use std::{iter, mem};
 use threed_ice_sys::*;
@@ -5,7 +6,7 @@ use threed_ice_sys::*;
 use support::setup_simulator;
 
 #[test]
-fn test_system_vector() { setup_simulator(None, move |stkd, analysis, _| unsafe {
+fn test_system_vector() { setup_simulator(Some("hotspot"), move |stkd, analysis, _| unsafe {
     let mut tgrid: ThermalGrid_t = mem::uninitialized();
     let mut pgrid: PowerGrid_t = mem::uninitialized();
 
@@ -20,14 +21,22 @@ fn test_system_vector() { setup_simulator(None, move |stkd, analysis, _| unsafe 
     success!(power_grid_build(&mut pgrid, layers, cells));
     fill_power_grid(&mut pgrid, &mut stkd.StackElements);
 
-    let mut temperatures = iter::repeat(analysis.InitialTemperature).take(cells as usize)
-                                                                    .collect::<Vec<_>>();
-    let temperatures = temperatures.as_mut_ptr() as *mut _;
+    let mut actual = iter::repeat(analysis.InitialTemperature).take(cells as usize)
+                                                              .collect::<Vec<_>>();
 
+    let temperatures = actual.as_mut_ptr() as *mut _;
     success!(update_source_vector(&mut pgrid, &mut tgrid, stkd.Dimensions));
-
     fill_system_vector(stkd.Dimensions, temperatures, pgrid.Sources, &mut tgrid, temperatures,
                        analysis.StepTime);
+
+    let expected = vec![
+        3.440574999999999e+02, 3.440574999999999e+02, 3.440574999999999e+02, 3.440574999999999e+02,
+        1.018080000000000e+02, 1.018080000000000e+02, 1.018080000000000e+02, 1.018080000000000e+02,
+        2.541223125000000e+05, 2.541223125000000e+05, 2.541223125000000e+05, 2.541223125000000e+05,
+        7.020553669467223e+06, 7.020553669467223e+06, 7.020553669467223e+06, 7.020553669467223e+06,
+    ];
+
+    assert::within(&actual, &expected, 1e-10);
 
     thermal_grid_destroy(&mut tgrid);
     power_grid_destroy(&mut pgrid);

@@ -15,6 +15,7 @@ libc = "*"
 superlu-sys = "*"
 
 [dev-dependencies]
+assert = "*"
 temporary = "*"
 
 [[test]]

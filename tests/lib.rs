@@ -1,3 +1,4 @@
+extern crate assert;
 extern crate libc;
 extern crate threed_ice_sys;
 
