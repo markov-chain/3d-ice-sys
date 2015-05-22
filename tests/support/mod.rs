@@ -39,8 +39,6 @@ pub fn setup_simulator<F>(name: Option<&str>, mut code: F)
         success!(parse_stack_description_file(path_to_c_str!(stack).as_ptr() as *mut _,
                                               &mut stkd, &mut analysis, &mut output));
 
-        assert!(analysis.AnalysisType == TDICE_ANALYSIS_TYPE_TRANSIENT);
-
         code(&mut stkd, &mut analysis, &mut output);
 
         stack_description_destroy(&mut stkd);

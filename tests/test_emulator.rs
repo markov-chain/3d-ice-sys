@@ -6,6 +6,8 @@ use support::{setup_simulator, setup_ping};
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]
 fn test_emulator() { setup_simulator(None, move |stkd, analysis, output| unsafe {
+    assert!(analysis.AnalysisType == TDICE_ANALYSIS_TYPE_TRANSIENT);
+
     let mut tdata: ThermalData_t = mem::uninitialized();
 
     thermal_data_init(&mut tdata);
