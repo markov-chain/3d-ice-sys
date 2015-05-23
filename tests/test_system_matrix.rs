@@ -2,10 +2,8 @@ use assert;
 use std::mem;
 use threed_ice_sys::*;
 
-use support::setup_simulator;
-
 #[test]
-fn test_system_matrix() { setup_simulator(Some("hotspot"), move |stkd, analysis, _| unsafe {
+fn test_system_matrix() { ::support::setup(Some("hotspot"), move |stkd, analysis, _| unsafe {
     use std::slice::from_raw_parts;
 
     let mut grid: ThermalGrid_t = mem::uninitialized();

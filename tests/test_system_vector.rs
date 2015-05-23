@@ -3,10 +3,8 @@ use libc::c_double;
 use std::{iter, mem};
 use threed_ice_sys::*;
 
-use support::setup_simulator;
-
 #[test]
-fn test_system_vector() { setup_simulator(Some("hotspot"), move |stkd, analysis, _| unsafe {
+fn test_system_vector() { ::support::setup(Some("hotspot"), move |stkd, analysis, _| unsafe {
     let mut tgrid: ThermalGrid_t = mem::uninitialized();
     let mut pgrid: PowerGrid_t = mem::uninitialized();
 
