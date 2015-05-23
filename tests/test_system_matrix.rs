@@ -46,7 +46,7 @@ fn test_system_matrix() { ::support::setup(Some("hotspot"), move |stkd, analysis
          2.206800548917464e+04, -1.201561884917640e+00,  2.206800548917464e+04,
         -1.201561884917640e+00,  2.206800548917464e+04,
     ];
-    assert::within(actual, &expected[..], 1e-10);
+    assert::within(actual, &expected, 1e-10);
 
     let actual = from_raw_parts(matrix.RowIndices, 56);
     let expected: Vec<u32> = vec![
