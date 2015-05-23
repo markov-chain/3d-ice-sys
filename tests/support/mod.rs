@@ -1,11 +1,11 @@
 extern crate fixture;
 extern crate temporary;
 
-use std::{fs, mem};
+use self::temporary::Directory;
+use std::mem;
 use std::path::{Path, PathBuf};
 use std::sync::mpsc;
 use std::thread;
-use self::temporary::Directory;
 
 use threed_ice_sys::*;
 
@@ -55,7 +55,7 @@ pub fn setup_environment<F>(name: Option<&str>, mut code: F) where F: FnMut(&Pat
         None => find("default"),
     };
     let into = directory.path().join(ok!(from.file_name()));
-    copy(&from, &into);
+    ok!(fixture::copy::with_references(&from, &into));
     code(&into);
 }
 
@@ -80,49 +80,8 @@ pub fn setup_ping<F>(mut code: F) where F: FnMut() {
 
 fn find(name: &str) -> PathBuf {
     let path = PathBuf::from("tests/fixtures").join(name);
-    match fixture::find::extension(&path, "stk") {
+    match fixture::find::with_extension(&path, "stk") {
         Some(path) => path,
         None => panic!("cannot find a stack description in {:?}", path),
-    }
-}
-
-fn copy(source: &Path, destination: &Path) {
-    use std::fs::File;
-    use std::io::{BufRead, BufReader, BufWriter, Write};
-
-    let from = ok!(source.parent());
-    let into = ok!(destination.parent());
-
-    let mut source = ok!(File::open(source));
-    let reader = BufReader::new(&mut source);
-
-    let mut destination = ok!(File::create(destination));
-    let mut writer = BufWriter::new(&mut destination);
-
-    for line in reader.lines() {
-        let line = ok!(line);
-        match line.find('"') {
-            Some(i) => match line.rfind('"') {
-                Some(j) => {
-                    let (prefix, name, suffix) = (&line[..i+1], &line[i+1..j], &line[j..]);
-                    let (source, destination) = (from.join(name), into.join(name));
-
-                    ok!(writer.write(prefix.as_bytes()));
-                    ok!(writer.write(ok!(destination.to_str()).as_bytes()));
-                    ok!(writer.write(suffix.as_bytes()));
-                    ok!(writer.write(b"\n"));
-
-                    if fs::metadata(&source).is_ok() {
-                        ok!(fs::copy(&source, &destination));
-                    }
-
-                    continue;
-                },
-                _ => assert!(false),
-            },
-            _ => {},
-        }
-        ok!(writer.write(line.as_bytes()));
-        ok!(writer.write(b"\n"));
     }
 }
