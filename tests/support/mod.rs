@@ -1,3 +1,4 @@
+extern crate fixture;
 extern crate temporary;
 
 use std::{fs, mem};
@@ -78,23 +79,11 @@ pub fn setup_ping<F>(mut code: F) where F: FnMut() {
 }
 
 fn find(name: &str) -> PathBuf {
-    use std::ascii::AsciiExt;
-
     let path = PathBuf::from("tests/fixtures").join(name);
-    assert!(ok!(fs::metadata(&path)).is_dir());
-
-    for entry in ok!(fs::read_dir(&path)) {
-        let entry = ok!(entry);
-        if ok!(fs::metadata(entry.path())).is_dir() {
-            continue;
-        }
-        match &ok!(ok!(entry.path().extension()).to_str()).to_ascii_lowercase()[..] {
-            "stk" => return entry.path(),
-            _ => {},
-        }
+    match fixture::find::extension(&path, "stk") {
+        Some(path) => path,
+        None => panic!("cannot find a stack description in {:?}", path),
     }
-
-    panic!("cannot find a stack description in {:?}", path);
 }
 
 fn copy(source: &Path, destination: &Path) {

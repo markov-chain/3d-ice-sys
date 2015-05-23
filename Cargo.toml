@@ -16,6 +16,7 @@ superlu-sys = "*"
 
 [dev-dependencies]
 assert = "*"
+fixture = "*"
 temporary = "*"
 
 [[test]]
