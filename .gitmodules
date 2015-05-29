@@ -3,5 +3,5 @@
 	url = https://github.com/copies/3d-ice.git
 [submodule "patches"]
 	path = build/patches
-	url = https://github.com/copies/3d-ice
+	url = https://github.com/copies/3d-ice.git
 	branch = patches
