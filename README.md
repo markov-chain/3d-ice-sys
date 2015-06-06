@@ -1,4 +1,4 @@
-# 3d-ice-sys [![Build Status][status-img]][status-url]
+# 3d-ice-sys [![Version][version-img]][version-url] [![Status][status-img]][status-url]
 
 The package provides bindings to [3D-ICE][1].
 
@@ -15,6 +15,8 @@ The package provides bindings to [3D-ICE][1].
 [1]: http://esl.epfl.ch/3D-ICE
 [2]: http://esl.epfl.ch/files/content/sites/esl/files/3dice/releases/3D-ICE-User_Guide.pdf
 
-[doc]: https://stainless-steel.github.io/3d-ice-sys
+[version-img]: https://img.shields.io/crates/v/threed-ice-sys.svg
+[version-url]: https://crates.io/crates/threed-ice-sys
 [status-img]: https://travis-ci.org/stainless-steel/3d-ice-sys.svg?branch=master
 [status-url]: https://travis-ci.org/stainless-steel/3d-ice-sys
+[doc]: https://stainless-steel.github.io/3d-ice-sys
