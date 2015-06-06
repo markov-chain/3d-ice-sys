@@ -74,7 +74,7 @@ pub fn ping<F>(mut code: F) where F: FnMut() {
 
 fn find(name: &str) -> PathBuf {
     let path = PathBuf::from("tests/fixtures").join(name);
-    match fixture::find::with_extension(&path, "stk") {
+    match fixture::find::first_with_extension(&path, "stk") {
         Some(path) => path,
         None => panic!("cannot find a stack description in {:?}", path),
     }
