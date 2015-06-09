@@ -17,6 +17,6 @@ The package provides bindings to [3D-ICE][1].
 
 [version-img]: https://img.shields.io/crates/v/threed-ice-sys.svg
 [version-url]: https://crates.io/crates/threed-ice-sys
-[status-img]: https://travis-ci.org/stainless-steel/3d-ice-sys.svg?branch=master
-[status-url]: https://travis-ci.org/stainless-steel/3d-ice-sys
-[doc]: https://stainless-steel.github.io/3d-ice-sys
+[status-img]: https://travis-ci.org/simulated-reality/3d-ice-sys.svg?branch=master
+[status-url]: https://travis-ci.org/simulated-reality/3d-ice-sys
+[doc]: https://simulated-reality.github.io/3d-ice-sys
