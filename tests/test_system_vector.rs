@@ -34,7 +34,7 @@ fn test_system_vector() { ::support::setup(Some("hotspot"), move |stkd, analysis
         7.020553669467223e+06, 7.020553669467223e+06, 7.020553669467223e+06, 7.020553669467223e+06,
     ];
 
-    assert::within(&actual, &expected, 1e-10);
+    assert::close(&actual, &expected, 1e-10);
 
     thermal_grid_destroy(&mut tgrid);
     power_grid_destroy(&mut pgrid);

@@ -21,8 +21,8 @@ fn test_system_matrix() { ::support::setup(Some("hotspot"), move |stkd, analysis
     success!(system_matrix_build(&mut matrix, cells, connections));
     fill_system_matrix(&mut matrix, &mut grid, analysis, stkd.Dimensions);
 
-    assert::equal(matrix.Size, 16);
-    assert::equal(matrix.NNz, 56);
+    assert_eq!(matrix.Size, 16);
+    assert_eq!(matrix.NNz, 56);
 
     let actual = from_raw_parts(matrix.Values, 56);
     let expected = vec![
@@ -46,18 +46,18 @@ fn test_system_matrix() { ::support::setup(Some("hotspot"), move |stkd, analysis
          2.206800548917464e+04, -1.201561884917640e+00,  2.206800548917464e+04,
         -1.201561884917640e+00,  2.206800548917464e+04,
     ];
-    assert::within(actual, &expected, 1e-10);
+    assert::close(actual, &expected, 1e-10);
 
     let actual = from_raw_parts(matrix.RowIndices, 56);
     let expected: Vec<u32> = vec![
         0, 1, 2, 4, 0, 1, 3, 5, 0, 2, 3, 6, 1, 2, 3, 7, 0, 4, 5, 6, 8, 1, 4, 5, 7, 9, 2, 4, 6, 7,
         10, 3, 5, 6, 7, 11, 4, 8, 12, 5, 9, 13, 6, 10, 14, 7, 11, 15, 8, 12, 9, 13, 10, 14, 11, 15,
     ];
-    assert::equal(actual, &expected[..]);
+    assert_eq!(actual, &expected[..]);
 
     let actual = from_raw_parts(matrix.ColumnPointers, 16 + 1);
     let expected: Vec<u32> = vec![0, 4, 8, 12, 16, 21, 26, 31, 36, 39, 42, 45, 48, 50, 52, 54, 56];
-    assert::equal(actual, &expected[..]);
+    assert_eq!(actual, &expected[..]);
 
     thermal_grid_destroy(&mut grid);
     system_matrix_destroy(&mut matrix);
