@@ -9,6 +9,7 @@ after_success:
 
 script:
   - cargo build --verbose
+  - cargo test --verbose stack
   - cargo test --verbose system
 
 env:
