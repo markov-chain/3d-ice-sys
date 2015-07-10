@@ -1,3 +1,4 @@
+use libc::c_void;
 use std::mem;
 
 use channel::*;
@@ -6,39 +7,29 @@ use heat_sink::*;
 use layer::*;
 use types::*;
 
-#[cfg(target_pointer_width = "32")]
 #[derive(Clone, Copy)]
 #[repr(C)]
-pub struct StackElement_p {
-    pointer: [u8; 4],
-}
-
-#[cfg(target_pointer_width = "64")]
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct StackElement_p {
-    pointer: [u8; 8],
-}
+pub struct StackElement_p(*mut c_void);
 
 impl StackElement_p {
     #[inline]
     pub unsafe fn Layer(&mut self) -> *mut Layer_t {
-        mem::transmute(&self.pointer)
+        mem::transmute(&self.0)
     }
 
     #[inline]
     pub unsafe fn Die(&mut self) -> *mut Die_t {
-        mem::transmute(&self.pointer)
+        mem::transmute(&self.0)
     }
 
     #[inline]
     pub unsafe fn Channel(&mut self) -> *mut Channel_t {
-        mem::transmute(&self.pointer)
+        mem::transmute(&self.0)
     }
 
     #[inline]
     pub unsafe fn HeatSink(&mut self) -> *mut HeatSink_t {
-        mem::transmute(&self.pointer)
+        mem::transmute(&self.0)
     }
 }
 
