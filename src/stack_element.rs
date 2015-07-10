@@ -13,23 +13,23 @@ pub struct StackElement_p(*mut c_void);
 
 impl StackElement_p {
     #[inline]
-    pub unsafe fn Layer(&mut self) -> *mut Layer_t {
-        mem::transmute(&self.0)
+    pub unsafe fn Layer(&self) -> *mut Layer_t {
+        mem::transmute(self.0)
     }
 
     #[inline]
-    pub unsafe fn Die(&mut self) -> *mut Die_t {
-        mem::transmute(&self.0)
+    pub unsafe fn Die(&self) -> *mut Die_t {
+        mem::transmute(self.0)
     }
 
     #[inline]
-    pub unsafe fn Channel(&mut self) -> *mut Channel_t {
-        mem::transmute(&self.0)
+    pub unsafe fn Channel(&self) -> *mut Channel_t {
+        mem::transmute(self.0)
     }
 
     #[inline]
-    pub unsafe fn HeatSink(&mut self) -> *mut HeatSink_t {
-        mem::transmute(&self.0)
+    pub unsafe fn HeatSink(&self) -> *mut HeatSink_t {
+        mem::transmute(self.0)
     }
 }
 

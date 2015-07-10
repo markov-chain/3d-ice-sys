@@ -1,5 +1,5 @@
+use ffi::*;
 use std::mem;
-use threed_ice_sys::*;
 
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]

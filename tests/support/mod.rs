@@ -1,13 +1,12 @@
 extern crate fixture;
 extern crate temporary;
 
+use ffi::*;
 use self::temporary::Directory;
 use std::mem;
 use std::path::PathBuf;
 use std::sync::mpsc;
 use std::thread;
-
-use threed_ice_sys::*;
 
 macro_rules! ok(
     ($result:expr) => ($result.unwrap());

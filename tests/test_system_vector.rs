@@ -1,7 +1,7 @@
 use assert;
+use ffi::*;
 use libc::c_double;
 use std::{iter, mem};
-use threed_ice_sys::*;
 
 #[test]
 fn test_system_vector() { ::support::setup(Some("hotspot"), move |stkd, analysis, _| unsafe {

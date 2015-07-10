@@ -1,6 +1,6 @@
 use assert;
+use ffi::*;
 use std::mem;
-use threed_ice_sys::*;
 
 #[test]
 fn test_system_matrix() { ::support::setup(Some("hotspot"), move |stkd, analysis, _| unsafe {
