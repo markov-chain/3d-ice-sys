@@ -43,4 +43,5 @@ extern "C" {
     pub fn get_number_of_columns (dimensions: *mut Dimensions_t) -> CellIndex_t;
     pub fn get_number_of_cells(dimensions: *mut Dimensions_t) -> CellIndex_t;
     pub fn get_number_of_connections(dimensions: *mut Dimensions_t) -> CellIndex_t;
+    pub fn get_layer_area(dimensions: *mut Dimensions_t) -> CellIndex_t;
 }
