@@ -13,3 +13,8 @@ pub struct FloorplanMatrix_t {
     pub NNz: CellIndex_t,
     pub SLUMatrix: SuperMatrix,
 }
+
+extern "C" {
+    pub fn floorplan_matrix_multiply(flpmatrix: *mut FloorplanMatrix_t, x: *mut Source_t,
+                                     b: *mut Source_t);
+}
