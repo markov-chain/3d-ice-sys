@@ -1,12 +1,10 @@
-extern crate fixture;
-extern crate temporary;
-
 use ffi::*;
-use self::temporary::Directory;
+use fixture;
 use std::mem;
 use std::path::PathBuf;
 use std::sync::mpsc;
 use std::thread;
+use temporary::Directory;
 
 macro_rules! ok(
     ($result:expr) => ($result.unwrap());
@@ -24,13 +22,18 @@ macro_rules! path_to_c_str(
     ($path:expr) => (str_to_c_str!(ok!($path.to_str())));
 );
 
-pub fn setup<F>(name: Option<&str>, mut code: F)
-    where F: FnMut(&mut StackDescription_t, &mut Analysis_t, &mut Output_t) {
-
-    let source = find(name.unwrap_or("default"));
+pub fn deploy(name: &str) -> (PathBuf, Directory) {
+    let source = find(name);
     let directory = ok!(Directory::new("threed_ice_sys"));
     let destination = directory.path().join(ok!(source.file_name()));
     ok!(fixture::copy::with_references(&source, &destination));
+    (destination, directory)
+}
+
+pub fn setup<F>(name: Option<&str>, mut code: F)
+    where F: FnMut(&mut StackDescription_t, &mut Analysis_t, &mut Output_t)
+{
+    let (path, _directory) = deploy(name.unwrap_or("default"));
 
     unsafe {
         let mut stkd: StackDescription_t = mem::uninitialized();
@@ -41,7 +44,7 @@ pub fn setup<F>(name: Option<&str>, mut code: F)
         analysis_init(&mut analysis);
         output_init(&mut output);
 
-        success!(parse_stack_description_file(path_to_c_str!(destination).as_ptr() as *mut _,
+        success!(parse_stack_description_file(path_to_c_str!(path).as_ptr() as *mut _,
                                               &mut stkd, &mut analysis, &mut output));
 
         code(&mut stkd, &mut analysis, &mut output);

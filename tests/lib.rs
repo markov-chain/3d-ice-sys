@@ -1,5 +1,7 @@
 extern crate assert;
+extern crate fixture;
 extern crate libc;
+extern crate temporary;
 extern crate threed_ice_sys as ffi;
 
 #[macro_use]
