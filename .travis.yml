@@ -11,6 +11,7 @@ after_success:
 
 script:
   - cargo build --verbose
+  - cargo test --verbose invalid
   - cargo test --verbose stack
   - cargo test --verbose system
 
