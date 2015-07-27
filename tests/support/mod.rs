@@ -14,12 +14,12 @@ macro_rules! success(
     ($result:expr) => (assert!($result == TDICE_SUCCESS));
 );
 
-macro_rules! str_to_c_str(
+macro_rules! str_to_cstr(
     ($str:expr) => (ok!(::std::ffi::CString::new($str)));
 );
 
-macro_rules! path_to_c_str(
-    ($path:expr) => (str_to_c_str!(ok!($path.to_str())));
+macro_rules! path_to_cstr(
+    ($path:expr) => (str_to_cstr!(ok!($path.to_str())));
 );
 
 pub fn deploy(name: &str) -> (PathBuf, Directory) {
@@ -44,7 +44,7 @@ pub fn setup<F>(name: Option<&str>, mut code: F)
         analysis_init(&mut analysis);
         output_init(&mut output);
 
-        success!(parse_stack_description_file(path_to_c_str!(path).as_ptr() as *mut _,
+        success!(parse_stack_description_file(path_to_cstr!(path).as_ptr() as *mut _,
                                               &mut stkd, &mut analysis, &mut output));
 
         code(&mut stkd, &mut analysis, &mut output);

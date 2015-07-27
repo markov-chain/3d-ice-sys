@@ -16,7 +16,7 @@ fn test_emulator() { ::support::setup(None, move |stkd, analysis, output| unsafe
     });
 
     success!(generate_output_headers(output, stkd.Dimensions,
-                                     str_to_c_str!("% ").as_ptr() as String_t));
+                                     str_to_cstr!("% ").as_ptr() as String_t));
 
     loop {
         match emulate_step(&mut tdata, stkd.Dimensions, analysis) {

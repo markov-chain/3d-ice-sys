@@ -14,7 +14,7 @@ fn test_invalid() {
         analysis_init(&mut analysis);
         output_init(&mut output);
 
-        let result = parse_stack_description_file(path_to_c_str!(path).as_ptr() as *mut _,
+        let result = parse_stack_description_file(path_to_cstr!(path).as_ptr() as *mut _,
                                                   &mut stkd, &mut analysis, &mut output);
 
         assert!(result != TDICE_SUCCESS);
