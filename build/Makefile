@@ -4,14 +4,11 @@ source := $(build)/source
 patches := $(build)/patches
 superlu := $(DEP_SUPERLU_ROOT)/include
 cflags := -fPIC -MD -O3 -w
-library := lib/libthreed-ice.a
+library := libthreed-ice.a
 
-all: $(output)/$(library)
+all: $(output)/lib/$(library)
 
-$(output)/$(library): $(source)/$(library)
-	mkdir -p $(dir $@)
-	cp $< $@
-
-$(source)/$(library):
-	(cd $(source); cat $(sort $(wildcard $(patches)/*.patch)) | patch -p1)
-	$(MAKE) -C $(source) lib 3DICE_LIB_A='$@' SLU_INCLUDE='$(superlu)' SLU_LIBS= CFLAGS='$(cflags)'
+$(output)/lib/$(library):
+	cp -R $(source)/* $(output)/
+	(cd $(output); cat $(sort $(wildcard $(patches)/*.patch)) | patch -p1)
+	$(MAKE) -C $(output) lib 3DICE_LIB_A='$@' SLU_INCLUDE='$(superlu)' SLU_LIBS= CFLAGS='$(cflags)'
