@@ -29,12 +29,12 @@ dimensions:
    cell length 0.002e6, width 0.002e6;
 
 stack:
-   die DIE1 DIE floorplan "tests/fixtures/die.flp";
+   die DIE1 DIE floorplan "005.flp";
 
 solver:
    transient step 0.001, slot 0.001;
    initial temperature 318.15;
 
 output:
-   Tmap(DIE1, "tmap.txt", slot);
-   Pmap(DIE1, "pmap.txt", slot);
+   Tmap(DIE1, "T.txt", slot);
+   Pmap(DIE1, "P.txt", slot);
