@@ -1,4 +1,9 @@
+extern crate threed_ice_sys as ffi;
+
 use ffi::*;
+
+#[macro_use]
+mod support;
 
 macro_rules! c_str_to_str(
     ($string:expr) => (
@@ -7,7 +12,7 @@ macro_rules! c_str_to_str(
 );
 
 #[test]
-fn test_stack() { ::support::setup(Some("hotspot"), move |stkd, _, _| unsafe {
+fn test_stack() { support::setup(move |stkd, _, _| unsafe {
     assert_eq!(stkd.StackElements.Size, 2);
 
     let element = &(&*stkd.StackElements.First).Data;

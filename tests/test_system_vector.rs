@@ -1,10 +1,16 @@
-use assert;
+extern crate assert;
+extern crate libc;
+extern crate threed_ice_sys as ffi;
+
 use ffi::*;
 use libc::c_double;
 use std::{iter, mem};
 
+#[macro_use]
+mod support;
+
 #[test]
-fn test_system_vector() { ::support::setup(Some("hotspot"), move |stkd, analysis, _| unsafe {
+fn test_system_vector() { ::support::setup(move |stkd, analysis, _| unsafe {
     let mut tgrid: ThermalGrid_t = mem::uninitialized();
     let mut pgrid: PowerGrid_t = mem::uninitialized();
 

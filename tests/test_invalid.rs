@@ -1,9 +1,15 @@
+extern crate threed_ice_sys as ffi;
+
 use ffi::*;
 use std::mem;
 
+#[allow(dead_code)]
+#[macro_use]
+mod support;
+
 #[test]
 fn test_invalid() {
-    let (path, _directory) = ::support::deploy("invalid");
+    let (path, _directory) = support::deploy("invalid");
 
     unsafe {
         let mut stkd: StackDescription_t = mem::uninitialized();

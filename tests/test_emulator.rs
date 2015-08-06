@@ -1,19 +1,22 @@
+extern crate threed_ice_sys as ffi;
+
 use ffi::*;
 use std::mem;
 
+#[macro_use]
+mod support;
+
 // https://github.com/copies/3d-ice/blob/master/bin/3D-ICE-Emulator.c
 #[test]
-fn test_emulator() { ::support::setup(None, move |stkd, analysis, output| unsafe {
+fn test_emulator() { support::setup(move |stkd, analysis, output| unsafe {
     assert!(analysis.AnalysisType == TDICE_ANALYSIS_TYPE_TRANSIENT);
 
     let mut tdata: ThermalData_t = mem::uninitialized();
 
     thermal_data_init(&mut tdata);
 
-    ::support::ping(|| {
-        success!(thermal_data_build(&mut tdata, &mut stkd.StackElements,
-                                    stkd.Dimensions, analysis));
-    });
+    success!(thermal_data_build(&mut tdata, &mut stkd.StackElements,
+                                stkd.Dimensions, analysis));
 
     success!(generate_output_headers(output, stkd.Dimensions,
                                      str_to_cstr!("% ").as_ptr() as String_t));

@@ -1,9 +1,14 @@
-use assert;
+extern crate assert;
+extern crate threed_ice_sys as ffi;
+
 use ffi::*;
 use std::mem;
 
+#[macro_use]
+mod support;
+
 #[test]
-fn test_system_matrix() { ::support::setup(Some("hotspot"), move |stkd, analysis, _| unsafe {
+fn test_system_matrix() { support::setup(move |stkd, analysis, _| unsafe {
     use std::slice::from_raw_parts;
 
     let mut grid: ThermalGrid_t = mem::uninitialized();

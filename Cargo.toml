@@ -18,6 +18,3 @@ superlu-sys = "*"
 assert = "*"
 fixture = "*"
 temporary = "*"
-
-[[test]]
-name = "lib"
