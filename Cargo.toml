@@ -1,6 +1,6 @@
 [package]
 name = "threed-ice-sys"
-version = "0.2.5"
+version = "0.2.6"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/markov-chain/3d-ice-sys"
@@ -11,10 +11,10 @@ build = "build.rs"
 links = "threed-ice"
 
 [dependencies]
-libc = "*"
-superlu-sys = "*"
+libc = "0.2"
+superlu-sys = "0.2"
 
 [dev-dependencies]
-assert = "*"
-fixture = "*"
-temporary = "*"
+assert = "0.6"
+fixture = "0.2"
+temporary = "0.5"
