@@ -1,5 +1,4 @@
 #![allow(bad_style)]
-#![allow(raw_pointer_derive)]
 
 extern crate libc;
 extern crate superlu_sys;
