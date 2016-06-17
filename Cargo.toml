@@ -1,20 +1,20 @@
 [package]
 name = "threed-ice-sys"
 version = "0.2.7"
-authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 license = "MIT"
-repository = "https://github.com/markov-chain/3d-ice-sys"
-homepage = "https://github.com/markov-chain/3d-ice-sys"
-documentation = "https://markov-chain.github.io/3d-ice-sys"
+authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 description = "The package provides bindings to 3D-ICE."
+documentation = "https://markov-chain.github.io/3d-ice-sys"
+homepage = "https://github.com/markov-chain/3d-ice-sys"
+repository = "https://github.com/markov-chain/3d-ice-sys"
 build = "build.rs"
 links = "threed-ice"
 
 [dependencies]
 libc = "0.2"
-superlu-sys = "0.2"
+superlu-sys = "0.3"
 
 [dev-dependencies]
-assert = "0.6"
-fixture = "0.2"
-temporary = "0.5"
+assert = "0.7"
+fixture = "0.3"
+temporary = "0.6"
